@@ -33,9 +33,9 @@ end
 
 initial begin
     rst_n = 0;
-    #3;
+    #7;
     rst_n = 1;
-    #40000;
+    #10000;
     $finish;
 end
 
@@ -46,7 +46,7 @@ initial begin
     cmd_len   = 1052;
     cmd_size  = 3'b010;
     cmd_burst = 2'b01;
-    #20000;
+    #3000;
     cmd_valid = 1'b1;
 end
 

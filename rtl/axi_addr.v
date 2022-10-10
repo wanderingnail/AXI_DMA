@@ -16,6 +16,7 @@ localparam FIXED     = 2'b00,
            WRAP      = 2'b10;
 
 reg [AW-1 : 0] wrap_mask, increment;
+reg [AW-1 : 0] o_next_addr;
 
 // increment
 always @(*) begin
@@ -97,7 +98,7 @@ always @(*) begin
             endcase
         end
     end
-    if (i_burst[i]) begin
+    if (i_burst[1]) begin
         o_next_addr = (i_last_addr & ~wrap_mask) | (o_next_addr & wrap_mask);
     end
     if (AW > 12) begin

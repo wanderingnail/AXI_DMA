@@ -72,6 +72,7 @@ reg [IW-1 : 0] axi_bid;
 reg            axi_bvalid;
 
 reg            axi_arready;
+reg [AW-1 : 0] axi_rdata;
 reg            axi_rlast;
 reg [IW-1 : 0] axi_rid;
 reg            axi_rvalid;
@@ -168,8 +169,8 @@ end
 // write memory
 always @(posedge S_AXI_ACLK) begin
     if (wfire) begin
-        for (inter i = 0; i < DW_BYTE; i = i + 1) begin
-            mem[awaddr + i] <= S_AXI_WDATA[(idx << 3) +: 8];
+        for (integer i = 0; i < DW_BYTE; i = i + 1) begin
+            mem[awaddr + i] <= S_AXI_WDATA[8*i+7 -: 8];
         end
     end
 end
@@ -228,7 +229,7 @@ always @(posedge S_AXI_ACLK) begin
     else if (arfire) begin
         axi_arready <= 1'b0;
     end
-    else if (!r_pend) begin
+    else if (rfire) begin
         axi_arready <= (cur_rlen <= 1);
     end
 end
@@ -277,12 +278,15 @@ axi_addr #(
     .o_next_addr(next_rd_addr)
 );
 
-for (integer i = 0; i < DW_BYTE; i = i + 1) begin
-    assign S_AXI_RDATA[(i << 3) + : 8] = mem[araddr + i];
+always @(*) begin
+    for (integer i = 0; i < DW_BYTE; i = i + 1) begin
+        axi_rdata[8*i+7 -: 8] = mem[araddr+i];
+    end
 end
 
 assign S_AXI_ARREADY = axi_arready;
 assign S_AXI_RVALID  = axi_rvalid;
+assign S_AXI_RDATA   = axi_rdata;
 assign S_AXI_RLAST   = axi_rlast;
 assign S_AXI_RID     = axi_rid;
 assign S_AXI_RRESP   = 2'b00;

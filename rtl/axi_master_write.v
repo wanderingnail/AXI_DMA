@@ -144,7 +144,7 @@ always @(*) begin
     if (axi_awvalid || pre_start) begin
         start_burst_combo = 1'b0;
     end
-    if (!last_wfire) begin
+    if (M_AXI_WVALID && !(M_AXI_WLAST && M_AXI_WREADY)) begin
         start_burst_combo = 1'b0;
     end
 end
@@ -164,7 +164,7 @@ always @(posedge M_AXI_ACLK) begin
     if (!M_AXI_ARESETN) begin
         axi_awvalid <= 1'b0;
     end
-    else if (!ar_pending) begin
+    else if (!aw_pending) begin
         axi_awvalid <= start_burst_combo;
     end
 end
@@ -232,7 +232,7 @@ always @(posedge M_AXI_ACLK) begin
             if (|w_cmd_len[AW-1 : (LGMAXBURST+ADDRLSB)]) begin
                 aw_needs_alignment <= 1'b1;
             end
-            else if (|(w_cmd_addr[ADDRLSB + : LGMAXBURST] + w_cmd_len[ADDRLSB + : LGMAXBURST])) begin
+            else if (|(w_cmd_addr[(ADDRLSB+LGMAXBURST-1) : ADDRLSB] + w_cmd_len[(ADDRLSB+LGMAXBURST-1) : ADDRLSB])) begin
                 aw_needs_alignment <= 1'b1;
             end
         end
@@ -242,7 +242,7 @@ end
 // initial_burst_len_combo
 always @(*) begin
     // awaddr[ADDRLSB + : LGMAXBURST] + (1 + ~awaddr[ADDRLSB + : LGMAXBURST]) = 'b0; 
-    addr_align_combo        = 1'b1 + (~awaddr[ADDRLSB + : LGMAXBURST]);
+    addr_align_combo        = 1'b1 + (~awaddr[(ADDRLSB+LGMAXBURST-1) : ADDRLSB]);
     initial_burst_len_combo = (1 << LGMAXBURST);
     if (!aw_incr_burst) begin
         initial_burst_len_combo = (1 << LGMAX_FIXED_BURST);
@@ -264,7 +264,7 @@ always @(posedge M_AXI_ACLK) begin
         wr_max_burst <= initial_burst_len_combo;
     end
     else if (phantom_start) begin
-        if (ar_incr_burst) begin
+        if (aw_incr_burst) begin
             if (!aw_next_full_incr_burst_remaining_combo) begin
                 wr_max_burst <= {1'b0, aw_next_remaining_combo[7 : 0]};
             end
@@ -272,19 +272,19 @@ always @(posedge M_AXI_ACLK) begin
                 wr_max_burst <= (1 << LGMAXBURST);
             end
         end
-    end
-    else begin
-        if (!aw_next_full_fixed_burst_remaining_combo) begin
-            wr_max_burst <= {4'b0, aw_next_remaining_combo[3 : 0]};
-        end
         else begin
-            wr_max_burst <= (1 << LGMAX_FIXED_BURST);
+            if (!aw_next_full_fixed_burst_remaining_combo) begin
+                wr_max_burst <= {4'b0, aw_next_remaining_combo[3 : 0]};
+            end
+            else begin
+                wr_max_burst <= (1 << LGMAX_FIXED_BURST);
+            end
         end
     end
 end
 
 always @(posedge M_AXI_ACLK) begin
-    if (!ar_pending) begin
+    if (!aw_pending) begin
         axi_awlen <= wr_max_burst - 1'b1;
     end
 end
@@ -324,7 +324,7 @@ always @(posedge M_AXI_ACLK) begin
     end
     else if (awfire) begin
         axi_awaddr[ADDRLSB-1 : 0] <= 'b0;
-        if (ar_incr_burst) begin
+        if (aw_incr_burst) begin
             axi_awaddr[AW-1 : ADDRLSB] <=axi_awaddr[AW-1 : ADDRLSB] + wr_max_burst; 
         end
     end
@@ -349,7 +349,6 @@ end
 always @(posedge M_AXI_ACLK) begin
     if (!M_AXI_ARESETN) begin
         wr_beats_cnt  <= 'b0;
-        wr_none_beats <= 1'b1;
     end
     else begin
         case ({phantom_start,  wfire})

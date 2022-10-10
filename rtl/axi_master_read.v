@@ -212,7 +212,7 @@ always @(posedge M_AXI_ACLK) begin
     else if (!r_busy) begin 
         arburst <= r_cmd_burst;
         arsize  <= r_cmd_size;
-        arlent  <= r_cmd_len[ADDRLSB + : AWT];
+        arlent  <= r_cmd_len[AW-1 : ADDRLSB];
         arid    <= r_cmd_id;
         araddr  <= r_cmd_addr;
 
@@ -235,11 +235,11 @@ end
 always @(posedge M_AXI_ACLK) begin
     if (!r_busy) begin
         ar_needs_alignment <= 1'b0;
-        if (|r_cmd_addr[ADDRLSB + : LGMAXBURST]) begin
+        if (|r_cmd_addr[(ADDRLSB+LGMAXBURST-1) : ADDRLSB]) begin
             if (|r_cmd_len[AW-1 : (LGMAXBURST+ADDRLSB)]) begin
                 ar_needs_alignment <= 1'b1;
             end
-            else if (|(r_cmd_addr[ADDRLSB + : LGMAXBURST] + r_cmd_len[ADDRLSB + : LGMAXBURST])) begin
+            else if (|(r_cmd_addr[(ADDRLSB+LGMAXBURST-1) : ADDRLSB] + r_cmd_len[(ADDRLSB+LGMAXBURST-1) : ADDRLSB])) begin
                 ar_needs_alignment <= 1'b1;
             end
         end
@@ -248,8 +248,8 @@ end
 
 // initial_burst_len_combo
 always @(*) begin
-    // araddr[ADDRLSB + : LGMAXBURST] + (1 + ~araddr[ADDRLSB + : LGMAXBURST]) = 'b0; 
-    addr_align_combo        = 1'b1 + (~araddr[ADDRLSB + : LGMAXBURST]);
+    // araddr[(ADDRLSB+LGMAXBURST-1) : ADDRLSB] + (1 + ~araddr[(ADDRLSB+LGMAXBURST-1) : ADDRLSB]) = 'b0; 
+    addr_align_combo        = 1'b1 + (~araddr[(ADDRLSB+LGMAXBURST-1) : ADDRLSB]);
     initial_burst_len_combo = (1 << LGMAXBURST);
     if (!ar_incr_burst) begin
         initial_burst_len_combo = (1 << LGMAX_FIXED_BURST);
@@ -279,13 +279,13 @@ always @(posedge M_AXI_ACLK) begin
                 rd_max_burst <= (1 << LGMAXBURST);
             end
         end
-    end
-    else begin
-        if (!ar_next_full_fixed_burst_remaining_combo) begin
-            rd_max_burst <= {4'b0, ar_next_remaining_combo[3 : 0]};
-        end
         else begin
-            rd_max_burst <= (1 << LGMAX_FIXED_BURST);
+            if (!ar_next_full_fixed_burst_remaining_combo) begin
+                rd_max_burst <= {4'b0, ar_next_remaining_combo[3 : 0]};
+            end
+            else begin
+                rd_max_burst <= (1 << LGMAX_FIXED_BURST);
+            end
         end
     end
 end
