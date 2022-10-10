@@ -1,18 +1,18 @@
 Compiling VVP ...
  ... VVP file version 12.0 (devel) (s20150603-1539-g2693dd32b)
 Compile cleanup...
- ...    82117 functors (net_fun pool=3932160 bytes)
-                 39 logic
+ ...    82125 functors (net_fun pool=3932160 bytes)
+                 40 logic
                   0 bufif
                   2 resolv
-                110 signals
- ...      157 filters (net_fil pool=524288 bytes)
- ...     1744 opcodes (49152 bytes)
- ...      259 nets
- ...    86213 vvp_nets (5242720 bytes)
+                112 signals
+ ...      165 filters (net_fil pool=524288 bytes)
+ ...     1811 opcodes (49152 bytes)
+ ...      263 nets
+ ...    86221 vvp_nets (5242720 bytes)
  ...        0 arrays (0 words)
- ...        1 memories
-                  1 logic (65536 words)
+ ...        2 memories
+                  2 logic (65540 words)
                   0 real (0 words)
  ...       10 scopes
 Running ...
@@ -26,11 +26,11 @@ VCD warning: $dumpvars: Package ($unit) is not dumpable with VCD.
  ...execute Postsim callbacks
 Event counts:
         2005 time steps (pool=113)
-        7839 thread schedule events
-       43519 assign events
+        7827 thread schedule events
+       46512 assign events
              ...assign(vec4) pool=9362
              ...assign(vec8) pool=204
              ...assign(real) pool=256
              ...assign(word) pool=128
              ...assign(word/r) pool=204
-        2244 other events (pool=4096)
+        2242 other events (pool=4096)

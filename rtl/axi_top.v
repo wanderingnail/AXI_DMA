@@ -116,12 +116,12 @@ axi_master_read #(
     .M_AXI_RRESP(AXI_RRESP)
 );
 
-axi_slave #(
+axi_slave_outstanding #(
     .AXI_ID_WD(AXI_ID_WD),
     .AXI_DATA_WD(AXI_DATA_WD),
     .AXI_ADDR_WD(AXI_ADDR_WD),
     .AXI_STRB_WD(AXI_STRB_WD)
-) axi_slave(
+) axi_slave_outstanding(
     .S_AXI_ACLK(AXI_ACLK),
     .S_AXI_ARESETN(AXI_ARESETN),    
     .S_AXI_AWADDR(AXI_AWADDR),
