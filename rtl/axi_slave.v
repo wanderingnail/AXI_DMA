@@ -170,7 +170,7 @@ end
 always @(posedge S_AXI_ACLK) begin
     if (wfire) begin
         for (integer i = 0; i < DW_BYTE; i = i + 1) begin
-            mem[awaddr + i] <= S_AXI_WDATA[8*i+7 -: 8];
+            mem[awaddr + i] <= S_AXI_WDATA[(i << 3) + 7 -: 8];
         end
     end
 end
@@ -280,7 +280,7 @@ axi_addr #(
 
 always @(*) begin
     for (integer i = 0; i < DW_BYTE; i = i + 1) begin
-        axi_rdata[8*i+7 -: 8] = mem[araddr+i];
+        axi_rdata[(i << 3) + 7 -: 8] = mem[araddr + i];
     end
 end
 

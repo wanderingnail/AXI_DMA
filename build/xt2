@@ -7,7 +7,7 @@ Compile cleanup...
                   2 resolv
                 110 signals
  ...      157 filters (net_fil pool=524288 bytes)
- ...     1740 opcodes (49152 bytes)
+ ...     1744 opcodes (49152 bytes)
  ...      259 nets
  ...    86213 vvp_nets (5242720 bytes)
  ...        0 arrays (0 words)
