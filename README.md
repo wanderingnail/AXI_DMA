@@ -1,8 +1,7 @@
-# AXI_DMA
-rtl代码采用Xilinx风格编写。
+# AXI_DMA_CONTROLLER
 
-本设计可将DMA接收到的读写大块数据的命令拆分成多个burst发送，只有第一个burst需要处理4k边界问题。
-
+rtl代码采用Xilinx风格编写。  
+本设计可将DMA接收到的读写大块数据的命令拆分成多个burst发送，只有第一个burst需要处理4k边界问题。  
 数据位宽设为32位，由于仿真器不支持太大的mem，将地址设为16位，一次burst传输最多传输1kB数据。
 
 读通道的master支持outstanding，slave有支持outstanding和不支持两个版本，如果例化的是不支持的版本，读通道也会像写通道一样读完一个burst再发下一个请求。
