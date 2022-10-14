@@ -1,4 +1,6 @@
 # AXI_DMA_CONTROLLER
+## Block Diagram  
+![image](https://user-images.githubusercontent.com/71507230/195854675-7dc040a5-a50e-4d52-b9fd-0b9ffeac3024.png)
 
 rtl代码采用Xilinx风格编写。  
 本设计可将DMA接收到的读写大块数据的命令拆分成多个burst发送，只有第一个burst需要处理4k边界问题。  
