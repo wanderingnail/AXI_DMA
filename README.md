@@ -1,7 +1,7 @@
 # AXI_DMA_CONTROLLER
 ## Description
 The design can split the command into multiple bursts.Only the first burst will be processed, and none of the bursts will cross the 4k boundary.
-The read_master model support outstanding.There are two versions of slave that support outstanding and not outstanding.Testbench sends the same command to the DMA read/write channel and work on the same area.
+The master_read model support outstanding.There are two versions of slave that support outstanding and not outstanding.Testbench sends the same command to the DMA read/write channel and work on the same area.
 Some signals are not used,such as CHCHE,LOCK and QOS.
 The rtl code is written in style of xilinx.
 ## Block Diagram  
@@ -9,23 +9,29 @@ The rtl code is written in style of xilinx.
 ## Configuration Parameters
 |Name|Description|Default|
 |---|---|---|
-|AXI_ID_WD||2|
-|AXI_DATA_WD||32|
-|AXI_ADDR_WD||32|
-|AXI_STRB_WD||4|
+|AXI_ID_WD|Identification path width in bits.|2|
+|AXI_DATA_WD|Data path width in bits.|32|
+|AXI_ADDR_WD|Address path width in bits.|32|
+|AXI_STRB_WD|Strobe path width in bits.|4|
 ## Signal and Interface Pins
-|Name|Description|
-|---|---|
-|AXI_ACLK|All signals and are synchronous to this clock.| 
-|AXI_ARESETN|Resets the internal state of the peripheral.|
-|cmd_valid||
-|cmd_ready||
-|cmd_addr||
-|cmd_id||
-|cmd_burst||
-|cmd_size||
-|cmd_len||
-|cmd_abort||  
+|Name|Direction|Description|
+|---|---|---|
+|AXI_ACLK|input|All signals and are synchronous to this clock.| 
+|AXI_ARESETN|input|Resets the internal state of the peripheral.|
+|cmd_valid|input||
+|cmd_ready|output||
+|cmd_addr|input||
+|cmd_id|input||
+|cmd_burst|input||
+|cmd_size|input||
+|cmd_len|input||
+|cmd_abort|output||  
+## Design Details
+![outstanding](https://user-images.githubusercontent.com/71507230/195964587-cd1d3f88-6500-4411-abae-bd876887f203.png)
+![master_write](https://user-images.githubusercontent.com/71507230/195965330-d581130a-e1e4-4fa8-a110-8dd52277f2fe.png)
+![屏幕截图 2022-10-15 101423](https://user-images.githubusercontent.com/71507230/195964400-5c02999c-702b-44b1-9bfb-c61c75a74b56.png)
+
+
 
 
 未完工
