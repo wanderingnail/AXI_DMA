@@ -5,7 +5,8 @@ The master_read module support outstanding.There are two versions of slave that 
 Some signals are not used,such as CHCHE,LOCK and QOS.
 The rtl code is written in style of xilinx.
 ## Block Diagram  
-![屏幕截图 2022-10-15 093724](https://user-images.githubusercontent.com/71507230/195963426-b8ddd280-effa-406f-9c0c-c71f72a0b3ef.png)
+![DMA](https://user-images.githubusercontent.com/71507230/195978218-78b890ef-55c5-4008-83e5-a06ec39f3f1e.png)
+
 ## Configuration Parameters
 |Name|Description|Default|
 |---|---|---|
