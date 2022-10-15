@@ -7,12 +7,12 @@ Compile cleanup...
                   2 resolv
                 112 signals
  ...      165 filters (net_fil pool=524288 bytes)
- ...     1811 opcodes (49152 bytes)
- ...      263 nets
+ ...     1810 opcodes (49152 bytes)
+ ...      292 nets
  ...    86221 vvp_nets (5242720 bytes)
  ...        0 arrays (0 words)
  ...        2 memories
-                  2 logic (65540 words)
+                  2 logic (65552 words)
                   0 real (0 words)
  ...       10 scopes
 Running ...
@@ -20,17 +20,17 @@ Running ...
  ...propagate initialization events
  ...execute StartOfSim callbacks
  ...run scheduler
-VCD info: dumpfile axi_top.vcd opened for output.
+VCD info: dumpfile DMAC.vcd opened for output.
 VCD warning: $dumpvars: Package ($unit) is not dumpable with VCD.
-../sim/tb_axi_top.v:39: $finish called at 10007 (1ns)
+../sim/tb_DMAC.v:72: $finish called at 11007 (1ns)
  ...execute Postsim callbacks
 Event counts:
-        2005 time steps (pool=113)
-        7827 thread schedule events
-       46512 assign events
+        2205 time steps (pool=113)
+       10926 thread schedule events
+       40100 assign events
              ...assign(vec4) pool=9362
              ...assign(vec8) pool=204
              ...assign(real) pool=256
              ...assign(word) pool=128
              ...assign(word/r) pool=204
-        2242 other events (pool=4096)
+        2504 other events (pool=4096)

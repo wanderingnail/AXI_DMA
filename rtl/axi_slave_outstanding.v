@@ -92,7 +92,7 @@ wire b_pend = S_AXI_BVALID   && !S_AXI_BREADY;
 wire r_pend = S_AXI_RVALID   && !S_AXI_RREADY;
 
 // fifo_outsanding
-reg [(AW << 1)-1 : 0] fifo [3 : 0];
+reg [(AW << 1)-1 : 0] fifo [15 : 0];
 
 reg [4 : 0] wr_ptr;
 reg [4 : 0] rd_ptr;
@@ -219,8 +219,7 @@ always @(posedge S_AXI_ACLK) begin
     end
     else if (arfire) begin
         wr_ptr <= wr_ptr + 1'b1;
-        fifo[wr_ptr[3:0]][(AW << 1)-1 : AW] <= S_AXI_ARADDR;
-        fifo[wr_ptr[3:0]][AW-1 : 0]         <= S_AXI_ARLEN;
+        fifo[wr_ptr[3:0]] <= {S_AXI_ARADDR, S_AXI_ARLEN};
     end
 end
 
