@@ -1,7 +1,7 @@
 # AXI_DMA_CONTROLLER
 ## Description
 The design can split the command into multiple bursts.Only the first burst will be processed, and none of the bursts will cross the 4k boundary.
-The master_read model support outstanding.There are two versions of slave that support outstanding and not outstanding.Testbench sends the same command to the DMA read/write channel and work on the same area.
+The master_read module support outstanding.There are two versions of slave that support outstanding and not outstanding.Testbench sends the same command to the DMA read/write channel and work on the same area.
 Some signals are not used,such as CHCHE,LOCK and QOS.
 The rtl code is written in style of xilinx.
 ## Block Diagram  
