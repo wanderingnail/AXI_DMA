@@ -27,8 +27,8 @@ The rtl code is written in style of xilinx.
 |cmd_len|input|The number of bytes to process|
 |cmd_abort|output|Signal of error|  
 ## Design Details
-![outstanding](https://user-images.githubusercontent.com/71507230/195964587-cd1d3f88-6500-4411-abae-bd876887f203.png)
-![master_write](https://user-images.githubusercontent.com/71507230/195965330-d581130a-e1e4-4fa8-a110-8dd52277f2fe.png)
+![master_write](https://user-images.githubusercontent.com/71507230/195989015-506c8012-4e06-4ce7-be80-01df65bd503a.png)
+![master_read](https://user-images.githubusercontent.com/71507230/195989379-0336e48a-903a-4974-8bec-41e7db2f7068.png)
 ![屏幕截图 2022-10-15 101423](https://user-images.githubusercontent.com/71507230/195964400-5c02999c-702b-44b1-9bfb-c61c75a74b56.png)
 
 
