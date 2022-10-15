@@ -1,8 +1,11 @@
 # AXI_DMA_CONTROLLER
 ## Description
-The rtl code is written in style of xilinx.It can split the command into multiple bursts and only the first burst has to deal with 4k boundary.
+The design can split the command into multiple bursts.Only the first burst will be processed, and none of the bursts will cross the 4k boundary.
+The read_master model support outstanding.There are two versions of slave that support outstanding and not outstanding.Testbench sends the same command to the DMA read/write channel and work on the same area.
+Some signals are not used,such as CHCHE,LOCK and QOS.
+The rtl code is written in style of xilinx.
 ## Block Diagram  
-![image](https://user-images.githubusercontent.com/71507230/195854675-7dc040a5-a50e-4d52-b9fd-0b9ffeac3024.png)
+![屏幕截图 2022-10-15 093724](https://user-images.githubusercontent.com/71507230/195963426-b8ddd280-effa-406f-9c0c-c71f72a0b3ef.png)
 ## Configuration Parameters
 |Name|Description|Default|
 |---|---|---|
@@ -27,6 +30,5 @@ The rtl code is written in style of xilinx.It can split the command into multipl
 
 未完工
    
-读通道的master支持outstanding，slave有支持outstanding和不支持两个版本，如果例化的是不支持的版本，读通道也会像写通道一样读完一个burst再发下一个请求。
-tb向DMA的读写通道发同样的命令，同时读写同一块区域。
-没有用到AXI协议的CACHE,lOCK,和QOS信号。
+
+
