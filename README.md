@@ -6,7 +6,9 @@ Some signals are not used,such as CHCHE,LOCK and QOS.
 The rtl code is written in style of xilinx.
 ## Block Diagram  
 ![DMA](https://user-images.githubusercontent.com/71507230/195978585-41bc8f4e-98f2-4c5d-bc76-31d7b54459ff.png)
-![read_part](https://user-images.githubusercontent.com/71507230/196177730-44bd9956-74ae-4f7a-98ca-f4fac1a4b46f.png)
+![master_read](https://user-images.githubusercontent.com/71507230/196185715-fe8f4253-aa73-49c6-b00f-5a8ba58079b1.png)
+
+
 
 ## Configuration Parameters
 |Name|Description|Default|
@@ -29,8 +31,10 @@ The rtl code is written in style of xilinx.
 |cmd_len|input|The number of bytes to process|
 |cmd_abort|output|Signal of error|  
 ## Design Details
-![master_write](https://user-images.githubusercontent.com/71507230/195989015-506c8012-4e06-4ce7-be80-01df65bd503a.png)
-![master_read](https://user-images.githubusercontent.com/71507230/195989379-0336e48a-903a-4974-8bec-41e7db2f7068.png)
+![master_write](https://user-images.githubusercontent.com/71507230/196181820-961c13fc-97cc-4ead-8bdc-a40b2c65e747.png)
+
+![outstanding](https://user-images.githubusercontent.com/71507230/196180171-00fe5124-560f-401f-8889-ddf546a94f5d.png)
+
 ![屏幕截图 2022-10-15 101423](https://user-images.githubusercontent.com/71507230/195964400-5c02999c-702b-44b1-9bfb-c61c75a74b56.png)
 
 
