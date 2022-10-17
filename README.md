@@ -13,7 +13,7 @@ The rtl code is written in style of xilinx.
 |AXI_DATA_WD|Data path width in bits.|32|
 |AXI_ADDR_WD|Address path width in bits.|32|
 |AXI_STRB_WD|Strobe path width in bits.|4|
-## Signal and Interface Pins
+## Signal and Interface Ports
 |Name|Direction|Description|
 |---|---|---|
 |AXI_ACLK|input|All signals and are synchronous to this clock.| 
